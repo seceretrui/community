@@ -1,0 +1,141 @@
+body {
+    background-color: #e5e5e5;
+}
+.main {
+    margin: 30px;
+    background-color: white;
+}
+
+.btn-float {
+    float: right;
+    margin-bottom:15px;
+}
+
+.media-object {
+    width: 38px;
+    height: 38px;
+}
+
+.media-post {
+    font-size: 12px;
+    font-weight: normal;
+    color: #999;
+}
+
+.profile .nav {
+    margin-top: 15px;
+}
+
+.community-menu {
+    font-size: 13px;
+    color: #999;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.comment {
+    margin: 10px 0;
+}
+
+.btn-comment {
+    float: right;
+    margin-bottom: 10px;
+}
+
+.comment-sp {
+    margin-top: 0;
+}
+
+.community-tag:hover {
+    background-color: #339dff;
+    color: #fff !important;
+    text-decoration-line: none;
+}
+
+.community-tag {
+    text-decoration-line: none;
+    cursor: pointer;
+    display: inline-block;
+    height: 20px;
+    line-height: 16px;
+    padding: 2px 5px;
+    background-color: #99cfff;
+    font-size: 12px;
+    color: #fff !important;
+    border-radius: 4px;
+    margin: 4px;
+}
+.question-sp {
+    margin-bottom: 1px;
+}
+
+.question-title {
+    margin-top: 25px;
+}
+
+.question-tag {
+    margin-right: 5px;
+}
+
+.question-related {
+    list-style: none;
+    padding: 0;
+    font-size: 14px;
+    line-height: 20px;
+}
+.publish-tag-tab {
+    display: none;
+    margin-top: 10px;
+    padding-top: 10px;
+}
+
+.publish-tag-tab .label-info {
+    white-space: normal;
+    margin: 5px;
+    display: inline-block;
+}
+
+.menu {
+    color: #999;
+    margin-top: 5px;
+}
+
+.menu .icon {
+    margin-right: 6px;
+    font-size: 15px;
+    cursor: pointer;
+}
+.menu .comment-icon {
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.menu .active {
+    color: #499ef3;
+}
+
+.menu .comment-icon:hover {
+    color: #499ef3;
+}
+
+.menu .icon:hover {
+    color: #499ef3;
+}
+
+.comments {
+    margin-bottom: 10px;
+    border-bottom: #eee 1px solid;
+    padding-bottom: 10px;
+}
+
+.sub-comments {
+    border-radius: 5px;
+    margin: 10px 0;
+    border: 1px solid #eee;
+    padding: 5px 0;
+}
+
+.sub-comments .btn {
+    margin: 10px 0;
+}
+
