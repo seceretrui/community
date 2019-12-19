@@ -59,7 +59,7 @@ public class QuestionService {
 //            questionDto.setUser(userMapper.selectByPrimaryKey(questionDto.getCreator()));
 //            dtoList.add(questionDto);
 //        }
-        paginationDTO.setQuestions(dtoList);
+        paginationDTO.setData(dtoList);
 
         return paginationDTO;
     }
@@ -90,7 +90,7 @@ public class QuestionService {
             questionDto.setUser(userMapper.selectByPrimaryKey(questionDto.getCreator()));
             dtoList.add(questionDto);
         }
-        paginationDTO.setQuestions(dtoList);
+        paginationDTO.setData(dtoList);
 
         return paginationDTO;
     }
