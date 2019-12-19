@@ -2,7 +2,6 @@ package com.ruihe.community.web;
 
 import com.ruihe.community.cache.TagCache;
 import com.ruihe.community.dto.QuestionDTO;
-import com.ruihe.community.mapper.QuestionMapper;
 import com.ruihe.community.model.Question;
 import com.ruihe.community.model.User;
 import com.ruihe.community.service.QuestionService;
@@ -85,11 +84,9 @@ public class PublishController {
         question.setTitle(title);
         question.setDescription(description);
         question.setTag(tag);
-        question.setGmtCreate(System.currentTimeMillis());
-        question.setGmtModified(question.getGmtCreate());
         question.setCreator(user.getId());
         question.setId(id);
-        questionService.updateOrCreate(question);
+        questionService.createOrUpdate(question);
         return "redirect:/";
     }
 }

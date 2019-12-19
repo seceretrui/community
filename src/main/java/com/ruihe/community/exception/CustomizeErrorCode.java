@@ -10,7 +10,8 @@ public enum CustomizeErrorCode implements ICustomizeErrorCode {
     CONTENT_IS_EMPTY(2007, "输入内容不能为空"),
     READ_NOTIFICATION_FAIL(2008, "读别人的信息？"),
     NOTIFICATION_NOT_FOUND(2009, "消息不见了"),
-    ;
+    QUESTION_NOT_FOUND(2010, "问题找不到"),
+    INVALID_OPERATION(2011, "错误的操作");
 
 
     @Override

@@ -1,9 +1,9 @@
 package com.ruihe.community.service;
 
-import com.ruihe.community.exception.CustomizeException;
-import com.ruihe.community.exception.CustomizeErrorCode;
 import com.ruihe.community.dto.PaginationDTO;
 import com.ruihe.community.dto.QuestionDTO;
+import com.ruihe.community.exception.CustomizeErrorCode;
+import com.ruihe.community.exception.CustomizeException;
 import com.ruihe.community.mapper.QuestionExtMapper;
 import com.ruihe.community.mapper.QuestionMapper;
 import com.ruihe.community.mapper.UserMapper;
@@ -15,6 +15,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.validation.ConstraintViolationException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -106,28 +107,45 @@ public class QuestionService {
         return questionDTO;
     }
 
-    public void updateOrCreate(Question question) {
-        if (question.getId() != null) {
-            Question updateQuestion = new Question();
-            updateQuestion.setGmtModified(System.currentTimeMillis());
-            updateQuestion.setTitle(question.getTitle());
-            updateQuestion.setDescription(question.getDescription());
-            updateQuestion.setTag(question.getTag());
-            QuestionExample example = new QuestionExample();
-            example.createCriteria()
-                    .andIdEqualTo(question.getId());
-            int updated = questionMapper.updateByExampleSelective(updateQuestion, example);
-            if (updated != 1) {
-                throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FIND);
+    public void createOrUpdate(Question question) {
+        try {
+            if (question.getId() == null) {
+                // 创建
+                question.setGmtCreate(System.currentTimeMillis());
+                question.setGmtModified(question.getGmtCreate());
+                question.setViewCount(0);
+                question.setLikeCount(0);
+                question.setCommentCount(0);
+                questionMapper.insert(question);
+            } else {
+                // 更新
+
+                Question dbQuestion = questionMapper.selectByPrimaryKey(question.getId());
+                if (dbQuestion == null) {
+                    throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
+                }
+
+                if (dbQuestion.getCreator().longValue() != question.getCreator().longValue()) {
+                    throw new CustomizeException(CustomizeErrorCode.INVALID_OPERATION);
+                }
+
+                Question updateQuestion = new Question();
+                updateQuestion.setGmtModified(System.currentTimeMillis());
+                updateQuestion.setTitle(question.getTitle());
+                updateQuestion.setDescription(question.getDescription());
+                updateQuestion.setTag(question.getTag());
+                QuestionExample example = new QuestionExample();
+                example.createCriteria()
+                        .andIdEqualTo(question.getId());
+                int updated = questionMapper.updateByExampleSelective(updateQuestion, example);
+                if (updated != 1) {
+                    throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
+                }
             }
-        } else {
-            question.setViewCount(0);
-            question.setLikeCount(0);
-            question.setCommentCount(0);
-            question.setGmtCreate(System.currentTimeMillis());
-            question.setGmtModified(question.getGmtCreate());
-            questionMapper.insert(question);
+        } catch (ConstraintViolationException conEx) {
+            System.out.println(conEx);
         }
+
     }
 
     public void incView(Long id) {

@@ -34,18 +34,16 @@ public class ProfileController {
         }
 
         if("questions".equals(action)) {
+            PaginationDTO paginationDTO = questionService.list(user.getId(), page, size);
             model.addAttribute("section", "questions");
             model.addAttribute("sectionName", "我的问题");
-            PaginationDTO paginationDTO = questionService.list(user.getId(), page, size);
             model.addAttribute("paginationDTOS", paginationDTO);
         }
         if ("replies".equals(action)) {
-            Long unreadCount = notificationService.unreadCount(user.getId());
             PaginationDTO paginationDTO = notificationService.list(user.getId(), page, size);
-            model.addAttribute("paginationDTOS", paginationDTO);
-            model.addAttribute("unreadCount", unreadCount);
             model.addAttribute("section", "replies");
             model.addAttribute("sectionName", "我的回复");
+            model.addAttribute("paginationDTOS", paginationDTO);
         }
         return "profile";
     }
