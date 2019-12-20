@@ -3,6 +3,7 @@
 <head>
     <title>发布-社区</title>
     <head th:insert="~{import :: head}"></head>
+    <head th:insert="~{import :: head}"></headth>
 </head>
 
 <body>
@@ -20,10 +21,23 @@
                            placeholder="问题标题..." autocomplete="off">
                 </div>
 
-                <div class="form-group">
+                <div class="form-group" id="test-editor">
                     <label for="title">问题补充 (必填，请参照右侧提示):</label>
-                    <textarea name="description" id="description" th:text="${description}" class="form-control"
-                              cols="30" row="10"></textarea>
+                    <textarea style="display:none;" name="description" id="description" th:text="${description}" class="form-control"
+                              cols="30"
+                              row="10"></textarea>
+                    <script type="text/javascript">
+                        $(function() {
+                            var editor = editormd("test-editor", {
+                                width  : "100%",
+                                height : 350,
+                                path   : "js/lib/",
+                                delay : 0,
+                                watch : false,
+                                placeholder : "请输入问题描述"
+                            });
+                        });
+                    </script>
                 </div>
 
                 <div class="form-group">
