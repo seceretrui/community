@@ -3,7 +3,6 @@ package com.ruihe.community.web;
 import com.ruihe.community.dto.CommentDTO;
 import com.ruihe.community.dto.QuestionDTO;
 import com.ruihe.community.enums.CommentTypeEnum;
-import com.ruihe.community.model.Question;
 import com.ruihe.community.service.CommentService;
 import com.ruihe.community.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;

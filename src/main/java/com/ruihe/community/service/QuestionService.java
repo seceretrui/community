@@ -48,7 +48,17 @@ public class QuestionService {
         questionExample.setOrderByClause("gmt_create desc");
         List<Question> list = questionMapper.selectByExampleWithRowbounds(questionExample, new RowBounds(offset, size));
 
-        List<QuestionDTO> dtoList = list.stream().map(question -> {
+        //获取完整的question,上面的list却少了description，不知道为啥
+        List<Long> questionId = list.stream().map(question -> {
+            Long id = question.getId();
+            return id;
+        }).collect(Collectors.toList());
+        List<Question> listQ = questionId.stream().map(id -> {
+            Question questionAll = questionMapper.selectByPrimaryKey(id);
+            return questionAll;
+        }).collect(Collectors.toList());
+
+        List<QuestionDTO> dtoList = listQ.stream().map(question -> {
             QuestionDTO questionDto = new QuestionDTO();
             BeanUtils.copyProperties(question, questionDto);
             questionDto.setUser(userMapper.selectByPrimaryKey(questionDto.getCreator()));

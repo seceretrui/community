@@ -33,7 +33,15 @@
                     <h4 class="media-heading">
                         <a th:href="@{'/question/' + ${question.id}}" th:text="${question.title}"></a>
                     </h4>
-                    <span th:text="${question.description}"></span><br>
+
+                    <!--简短的描述-->
+                    <div th:if="${#strings.length(question.description) > 40}">
+                        <span th:text="${#strings.abbreviate(question.description,40)}"></span>
+                    </div>
+                    <div th:if="${#strings.length(question.description) <= 40}">
+                        <span th:text="${question.description}"></span>
+                    </div>
+
                     <span class="media-post">
                         <span th:text="${question.commentCount}"></span> 个回复 •
                         <span th:text="${question.viewCount}"></span> 次浏览 •
