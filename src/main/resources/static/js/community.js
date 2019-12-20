@@ -115,11 +115,26 @@ function collapseComments(e) {
 function selectTag(e) {
     var value = e.getAttribute("data-tag");
     var previous = $("#tag").val();
+
+    //添加标签
     if (previous.indexOf(value) == -1) {
         if (previous) {
             $("#tag").val(previous + ',' + value);
         } else {
             $("#tag").val(value);
+        }//再次点击删除标签
+    } else {
+        var items = previous.split(",");
+        var i = items.indexOf(value);
+        items.splice(i, 1);
+        if (items.length == 0)
+            $("#tag").val("");
+        else if (items.length == 1) {
+            previous = items.join("");
+            $("#tag").val(previous);
+        } else {
+            previous = items.join(",");
+            $("#tag").val(previous);
         }
     }
 }
