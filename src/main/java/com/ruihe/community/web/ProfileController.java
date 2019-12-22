@@ -30,7 +30,7 @@ public class ProfileController {
 
         User user = (User) request.getSession().getAttribute("user");
         if(user==null) {
-            return "redirect:/";
+            return "redirect:https://github.com/login/oauth/authorize?client_id=f0ccd422426329cd3018&redirect_uri=http://localhost:8080/callback&scope=user&state=1";
         }
 
         if("questions".equals(action)) {
