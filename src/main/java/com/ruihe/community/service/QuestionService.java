@@ -2,6 +2,7 @@ package com.ruihe.community.service;
 
 import com.ruihe.community.dto.PaginationDTO;
 import com.ruihe.community.dto.QuestionDTO;
+import com.ruihe.community.dto.QuestionQueryDTO;
 import com.ruihe.community.exception.CustomizeErrorCode;
 import com.ruihe.community.exception.CustomizeException;
 import com.ruihe.community.mapper.QuestionExtMapper;
@@ -32,21 +33,38 @@ public class QuestionService {
     @Autowired
     private UserMapper userMapper;
 
-    public PaginationDTO list(Integer page, Integer size) {
+    public PaginationDTO list(String search, Integer page, Integer size) {
+        if (StringUtils.isNotBlank(search)) {
+            String[] tags = StringUtils.split(search, " ");
+            search = Arrays.stream(tags).collect(Collectors.joining("|"));
+        }
 
         PaginationDTO paginationDTO = new PaginationDTO();
-        Integer total = (int) questionMapper.countByExample(new QuestionExample());
-        paginationDTO.setPagination(total, page, size);
+        Integer totalPage;
+
+        QuestionQueryDTO questionQueryDTO = new QuestionQueryDTO();
+        questionQueryDTO.setSearch(search);
+
+        Integer totalCount = questionExtMapper.countBySearch(questionQueryDTO);
+
+        if (totalCount % size == 0) {
+            totalPage = totalCount / size;
+        } else {
+            totalPage = totalCount / size + 1;
+        }
+
         if (page < 1) {
             page = 1;
         }
-        if(page > paginationDTO.getTotalPage()) {
-            page = paginationDTO.getTotalPage();
+        if (page > totalPage) {
+            page = totalPage;
         }
-        Integer offset = size * (page-1);
-        QuestionExample questionExample = new QuestionExample();
-        questionExample.setOrderByClause("gmt_create desc");
-        List<Question> list = questionMapper.selectByExampleWithRowbounds(questionExample, new RowBounds(offset, size));
+
+        paginationDTO.setPagination(totalPage, page);
+        Integer offset = page < 1 ? 0 : size * (page - 1);
+        questionQueryDTO.setPage(offset);
+        questionQueryDTO.setSize(size);
+        List<Question> list = questionExtMapper.selectBySearch(questionQueryDTO);
 
         //获取完整的question,上面的list却少了description，不知道为啥
         List<Long> questionId = list.stream().map(question -> {
@@ -64,30 +82,35 @@ public class QuestionService {
             questionDto.setUser(userMapper.selectByPrimaryKey(questionDto.getCreator()));
             return questionDto;
         }).collect(Collectors.toList());
-//        for (Question question: list) {
-//            QuestionDTO questionDto = new QuestionDTO() ;
-//            BeanUtils.copyProperties(question, questionDto);
-//            questionDto.setUser(userMapper.selectByPrimaryKey(questionDto.getCreator()));
-//            dtoList.add(questionDto);
-//        }
+
         paginationDTO.setData(dtoList);
 
         return paginationDTO;
     }
 
     public PaginationDTO list(Long userId, Integer page, Integer size) {
+        Integer totalPage;
         PaginationDTO paginationDTO = new PaginationDTO();
         QuestionExample questionExample = new QuestionExample();
         questionExample.createCriteria()
                 .andCreatorEqualTo(userId);
-        Integer total = (int) questionMapper.countByExample(new QuestionExample());
-        paginationDTO.setPagination(total, page, size);
+        Integer totalCount = (int) questionMapper.countByExample(new QuestionExample());
+
+        if (totalCount % size == 0) {
+            totalPage = totalCount / size;
+        } else {
+            totalPage = totalCount / size + 1;
+        }
+
         if (page < 1) {
             page = 1;
         }
-        if(page > paginationDTO.getTotalPage()) {
-            page = paginationDTO.getTotalPage();
+        if (page > totalPage) {
+            page = totalPage;
         }
+
+        paginationDTO.setPagination(totalPage, page);
+
         Integer offset = size * (page-1);
         QuestionExample example = new QuestionExample();
         example.createCriteria()
