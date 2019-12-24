@@ -2,6 +2,7 @@ package com.ruihe.community.web;
 
 import com.ruihe.community.dto.FileDTO;
 import com.ruihe.community.provider.AliyunProvider;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,6 +16,7 @@ import java.io.IOException;
  * Created by seceretrui 2019/12/20/16:06
  */
 @RestController
+@Slf4j
 public class FileController {
     @Autowired
     private AliyunProvider aliyunProvider;
@@ -31,7 +33,7 @@ public class FileController {
             fileDTO.setUrl(fileName);
             return fileDTO;
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("upload error", e);
             FileDTO fileDTO = new FileDTO();
             fileDTO.setSuccess(0);
             fileDTO.setMessage("上传失败");

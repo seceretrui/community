@@ -3,13 +3,15 @@ package com.ruihe.community.provider;
 import com.alibaba.fastjson.JSON;
 import com.ruihe.community.dto.AccessTokenDTO;
 import com.ruihe.community.dto.GithubUserDTO;
+import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
 import org.springframework.stereotype.Component;
 
 @Component
+@Slf4j
 public class GithubProvider {
 
-    public String getAccesToken(AccessTokenDTO dto) {
+    public String getAccessToken(AccessTokenDTO dto) {
         MediaType mediaType = MediaType.get("application/json; charset=utf-8");
         OkHttpClient client = new OkHttpClient();
         RequestBody body = RequestBody.create(mediaType, JSON.toJSONString(dto));
@@ -24,7 +26,7 @@ public class GithubProvider {
             String token = string.split("&")[0].split("=")[1];
             return token;
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("getAccessToken error,{}", dto, e);
         }
         return null;
     }
@@ -42,7 +44,7 @@ public class GithubProvider {
 //            System.out.println(user);
             return user;
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("getUser error,{}", access_token, e);
         }
         return null;
     }

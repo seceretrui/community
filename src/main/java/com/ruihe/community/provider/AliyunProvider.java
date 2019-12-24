@@ -4,6 +4,7 @@ import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
 import com.aliyun.oss.model.PutObjectRequest;
 import com.aliyun.oss.model.PutObjectResult;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,7 @@ import java.util.UUID;
  * Created by seceretrui 2019/12/21/15:03
  */
 @Service
+@Slf4j
 public class AliyunProvider {
     @Value("${Aliyun-oss-accessKeyId}")
     private String accessKeyId;
@@ -45,7 +47,7 @@ public class AliyunProvider {
                 return url.toString();
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("upload error,{}", fileName, e);
         } finally {
             ossClient.shutdown();
         }

@@ -2,10 +2,10 @@ package com.ruihe.community.web;
 
 import com.ruihe.community.dto.AccessTokenDTO;
 import com.ruihe.community.dto.GithubUserDTO;
-import com.ruihe.community.mapper.UserMapper;
 import com.ruihe.community.model.User;
 import com.ruihe.community.provider.GithubProvider;
 import com.ruihe.community.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.UUID;
 
 @Controller
+@Slf4j
 public class AuthorizeController {
 
     @Autowired
@@ -46,7 +47,7 @@ public class AuthorizeController {
         accessTokenDTO.setClient_id(clientId);
         accessTokenDTO.setClient_secret(clientSecret);
         accessTokenDTO.setRedirect_uri(redirectUri);
-        String accessToken = githubProvider.getAccesToken(accessTokenDTO);
+        String accessToken = githubProvider.getAccessToken(accessTokenDTO);
         GithubUserDTO githubUserDTO = githubProvider.getUser(accessToken);
         if(githubUserDTO != null && githubUserDTO.getId() != null) {
             User user = new User();
@@ -61,6 +62,7 @@ public class AuthorizeController {
             response.addCookie(cookie);
             return "redirect:/";
         } else {
+            log.error("callback get github error,{}", githubUserDTO);
             return "redirect:/";
         }
     }
