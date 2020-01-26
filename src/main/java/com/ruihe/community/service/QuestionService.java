@@ -33,19 +33,12 @@ public class QuestionService {
     @Autowired
     private UserMapper userMapper;
 
-    public PaginationDTO list(String search, Integer page, Integer size) {
-        String tag = "";
+    public PaginationDTO list(String search, String tag, Integer page, Integer size) {
+
         if (StringUtils.isNotBlank(search)) {
             String[] tags = StringUtils.split(search, " ");
-            if (tags[0].contains("tag")) {
-                tag = Arrays.stream(tags).collect(Collectors.joining("|"));
-                search = null;
-            }else {
-                search = Arrays.stream(tags).collect(Collectors.joining("|"));
-                tag = null;
+            search = Arrays.stream(tags).collect(Collectors.joining("|"));
             }
-
-        }
 
         PaginationDTO paginationDTO = new PaginationDTO();
         Integer totalPage;
