@@ -126,8 +126,12 @@
 						<version>1.4.199</version>
 					</dependency>
 				</dependencies>
+				<configuration>
+					<overwrite>true</overwrite>
+				</configuration>
 			</plugin>
 		</plugins>
+		<finalName>community</finalName>
 	</build>
 
 </project>
