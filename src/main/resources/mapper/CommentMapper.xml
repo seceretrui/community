@@ -8,7 +8,7 @@
     <result column="COMMENTATOR" jdbcType="BIGINT" property="commentator" />
     <result column="GMT_CREATE" jdbcType="BIGINT" property="gmtCreate" />
     <result column="GMT_MODIFIED" jdbcType="BIGINT" property="gmtModified" />
-    <result column="LIKE_COUNT" jdbcType="INTEGER" property="likeCount" />
+    <result column="LIKE_COUNT" jdbcType="BIGINT" property="likeCount" />
     <result column="CONTENT" jdbcType="VARCHAR" property="content" />
     <result column="COMMENT_COUNT" jdbcType="INTEGER" property="commentCount" />
   </resultMap>
@@ -111,7 +111,7 @@
       )
     values (#{id,jdbcType=BIGINT}, #{parentId,jdbcType=BIGINT}, #{type,jdbcType=INTEGER}, 
       #{commentator,jdbcType=BIGINT}, #{gmtCreate,jdbcType=BIGINT}, #{gmtModified,jdbcType=BIGINT}, 
-      #{likeCount,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, #{commentCount,jdbcType=INTEGER}
+      #{likeCount,jdbcType=BIGINT}, #{content,jdbcType=VARCHAR}, #{commentCount,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.ruihe.community.model.Comment">
@@ -165,7 +165,7 @@
         #{gmtModified,jdbcType=BIGINT},
       </if>
       <if test="likeCount != null">
-        #{likeCount,jdbcType=INTEGER},
+        #{likeCount,jdbcType=BIGINT},
       </if>
       <if test="content != null">
         #{content,jdbcType=VARCHAR},
@@ -203,7 +203,7 @@
         GMT_MODIFIED = #{record.gmtModified,jdbcType=BIGINT},
       </if>
       <if test="record.likeCount != null">
-        LIKE_COUNT = #{record.likeCount,jdbcType=INTEGER},
+        LIKE_COUNT = #{record.likeCount,jdbcType=BIGINT},
       </if>
       <if test="record.content != null">
         CONTENT = #{record.content,jdbcType=VARCHAR},
@@ -224,7 +224,7 @@
       COMMENTATOR = #{record.commentator,jdbcType=BIGINT},
       GMT_CREATE = #{record.gmtCreate,jdbcType=BIGINT},
       GMT_MODIFIED = #{record.gmtModified,jdbcType=BIGINT},
-      LIKE_COUNT = #{record.likeCount,jdbcType=INTEGER},
+      LIKE_COUNT = #{record.likeCount,jdbcType=BIGINT},
       CONTENT = #{record.content,jdbcType=VARCHAR},
       COMMENT_COUNT = #{record.commentCount,jdbcType=INTEGER}
     <if test="_parameter != null">
@@ -250,7 +250,7 @@
         GMT_MODIFIED = #{gmtModified,jdbcType=BIGINT},
       </if>
       <if test="likeCount != null">
-        LIKE_COUNT = #{likeCount,jdbcType=INTEGER},
+        LIKE_COUNT = #{likeCount,jdbcType=BIGINT},
       </if>
       <if test="content != null">
         CONTENT = #{content,jdbcType=VARCHAR},
@@ -268,7 +268,7 @@
       COMMENTATOR = #{commentator,jdbcType=BIGINT},
       GMT_CREATE = #{gmtCreate,jdbcType=BIGINT},
       GMT_MODIFIED = #{gmtModified,jdbcType=BIGINT},
-      LIKE_COUNT = #{likeCount,jdbcType=INTEGER},
+      LIKE_COUNT = #{likeCount,jdbcType=BIGINT},
       CONTENT = #{content,jdbcType=VARCHAR},
       COMMENT_COUNT = #{commentCount,jdbcType=INTEGER}
     where ID = #{id,jdbcType=BIGINT}

@@ -474,52 +474,52 @@ public class CommentExample {
             return (Criteria) this;
         }
 
-        public Criteria andLikeCountEqualTo(Integer value) {
+        public Criteria andLikeCountEqualTo(Long value) {
             addCriterion("LIKE_COUNT =", value, "likeCount");
             return (Criteria) this;
         }
 
-        public Criteria andLikeCountNotEqualTo(Integer value) {
+        public Criteria andLikeCountNotEqualTo(Long value) {
             addCriterion("LIKE_COUNT <>", value, "likeCount");
             return (Criteria) this;
         }
 
-        public Criteria andLikeCountGreaterThan(Integer value) {
+        public Criteria andLikeCountGreaterThan(Long value) {
             addCriterion("LIKE_COUNT >", value, "likeCount");
             return (Criteria) this;
         }
 
-        public Criteria andLikeCountGreaterThanOrEqualTo(Integer value) {
+        public Criteria andLikeCountGreaterThanOrEqualTo(Long value) {
             addCriterion("LIKE_COUNT >=", value, "likeCount");
             return (Criteria) this;
         }
 
-        public Criteria andLikeCountLessThan(Integer value) {
+        public Criteria andLikeCountLessThan(Long value) {
             addCriterion("LIKE_COUNT <", value, "likeCount");
             return (Criteria) this;
         }
 
-        public Criteria andLikeCountLessThanOrEqualTo(Integer value) {
+        public Criteria andLikeCountLessThanOrEqualTo(Long value) {
             addCriterion("LIKE_COUNT <=", value, "likeCount");
             return (Criteria) this;
         }
 
-        public Criteria andLikeCountIn(List<Integer> values) {
+        public Criteria andLikeCountIn(List<Long> values) {
             addCriterion("LIKE_COUNT in", values, "likeCount");
             return (Criteria) this;
         }
 
-        public Criteria andLikeCountNotIn(List<Integer> values) {
+        public Criteria andLikeCountNotIn(List<Long> values) {
             addCriterion("LIKE_COUNT not in", values, "likeCount");
             return (Criteria) this;
         }
 
-        public Criteria andLikeCountBetween(Integer value1, Integer value2) {
+        public Criteria andLikeCountBetween(Long value1, Long value2) {
             addCriterion("LIKE_COUNT between", value1, value2, "likeCount");
             return (Criteria) this;
         }
 
-        public Criteria andLikeCountNotBetween(Integer value1, Integer value2) {
+        public Criteria andLikeCountNotBetween(Long value1, Long value2) {
             addCriterion("LIKE_COUNT not between", value1, value2, "likeCount");
             return (Criteria) this;
         }

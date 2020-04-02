@@ -3,11 +3,12 @@
 <mapper namespace="com.ruihe.community.mapper.UserMapper">
   <resultMap id="BaseResultMap" type="com.ruihe.community.model.User">
     <id column="ID" jdbcType="BIGINT" property="id" />
-    <result column="NAME" jdbcType="VARCHAR" property="name" />
     <result column="ACCOUNT_ID" jdbcType="VARCHAR" property="accountId" />
-    <result column="TOKEN" jdbcType="CHAR" property="token" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="TOKEN" jdbcType="VARCHAR" property="token" />
     <result column="GMT_CREATE" jdbcType="BIGINT" property="gmtCreate" />
     <result column="GMT_MODIFIED" jdbcType="BIGINT" property="gmtModified" />
+    <result column="BIO" jdbcType="VARCHAR" property="bio" />
     <result column="AVATAR_URL" jdbcType="VARCHAR" property="avatarUrl" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -69,7 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    ID, NAME, ACCOUNT_ID, TOKEN, GMT_CREATE, GMT_MODIFIED, AVATAR_URL
+    ID, ACCOUNT_ID, NAME, TOKEN, GMT_CREATE, GMT_MODIFIED, BIO, AVATAR_URL
   </sql>
   <select id="selectByExample" parameterType="com.ruihe.community.model.UserExample" resultMap="BaseResultMap">
     select
@@ -102,12 +103,12 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.ruihe.community.model.User">
-    insert into USER (ID, NAME, ACCOUNT_ID, 
+    insert into USER (ID, ACCOUNT_ID, NAME, 
       TOKEN, GMT_CREATE, GMT_MODIFIED, 
-      AVATAR_URL)
-    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{accountId,jdbcType=VARCHAR}, 
-      #{token,jdbcType=CHAR}, #{gmtCreate,jdbcType=BIGINT}, #{gmtModified,jdbcType=BIGINT}, 
-      #{avatarUrl,jdbcType=VARCHAR})
+      BIO, AVATAR_URL)
+    values (#{id,jdbcType=BIGINT}, #{accountId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{token,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=BIGINT}, #{gmtModified,jdbcType=BIGINT}, 
+      #{bio,jdbcType=VARCHAR}, #{avatarUrl,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.ruihe.community.model.User">
     insert into USER
@@ -115,11 +116,11 @@
       <if test="id != null">
         ID,
       </if>
-      <if test="name != null">
-        NAME,
-      </if>
       <if test="accountId != null">
         ACCOUNT_ID,
+      </if>
+      <if test="name != null">
+        NAME,
       </if>
       <if test="token != null">
         TOKEN,
@@ -130,6 +131,9 @@
       <if test="gmtModified != null">
         GMT_MODIFIED,
       </if>
+      <if test="bio != null">
+        BIO,
+      </if>
       <if test="avatarUrl != null">
         AVATAR_URL,
       </if>
@@ -138,20 +142,23 @@
       <if test="id != null">
         #{id,jdbcType=BIGINT},
       </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
-      </if>
       <if test="accountId != null">
         #{accountId,jdbcType=VARCHAR},
       </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
       <if test="token != null">
-        #{token,jdbcType=CHAR},
+        #{token,jdbcType=VARCHAR},
       </if>
       <if test="gmtCreate != null">
         #{gmtCreate,jdbcType=BIGINT},
       </if>
       <if test="gmtModified != null">
         #{gmtModified,jdbcType=BIGINT},
+      </if>
+      <if test="bio != null">
+        #{bio,jdbcType=VARCHAR},
       </if>
       <if test="avatarUrl != null">
         #{avatarUrl,jdbcType=VARCHAR},
@@ -170,20 +177,23 @@
       <if test="record.id != null">
         ID = #{record.id,jdbcType=BIGINT},
       </if>
-      <if test="record.name != null">
-        NAME = #{record.name,jdbcType=VARCHAR},
-      </if>
       <if test="record.accountId != null">
         ACCOUNT_ID = #{record.accountId,jdbcType=VARCHAR},
       </if>
+      <if test="record.name != null">
+        NAME = #{record.name,jdbcType=VARCHAR},
+      </if>
       <if test="record.token != null">
-        TOKEN = #{record.token,jdbcType=CHAR},
+        TOKEN = #{record.token,jdbcType=VARCHAR},
       </if>
       <if test="record.gmtCreate != null">
         GMT_CREATE = #{record.gmtCreate,jdbcType=BIGINT},
       </if>
       <if test="record.gmtModified != null">
         GMT_MODIFIED = #{record.gmtModified,jdbcType=BIGINT},
+      </if>
+      <if test="record.bio != null">
+        BIO = #{record.bio,jdbcType=VARCHAR},
       </if>
       <if test="record.avatarUrl != null">
         AVATAR_URL = #{record.avatarUrl,jdbcType=VARCHAR},
@@ -196,11 +206,12 @@
   <update id="updateByExample" parameterType="map">
     update USER
     set ID = #{record.id,jdbcType=BIGINT},
-      NAME = #{record.name,jdbcType=VARCHAR},
       ACCOUNT_ID = #{record.accountId,jdbcType=VARCHAR},
-      TOKEN = #{record.token,jdbcType=CHAR},
+      NAME = #{record.name,jdbcType=VARCHAR},
+      TOKEN = #{record.token,jdbcType=VARCHAR},
       GMT_CREATE = #{record.gmtCreate,jdbcType=BIGINT},
       GMT_MODIFIED = #{record.gmtModified,jdbcType=BIGINT},
+      BIO = #{record.bio,jdbcType=VARCHAR},
       AVATAR_URL = #{record.avatarUrl,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -209,20 +220,23 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.ruihe.community.model.User">
     update USER
     <set>
-      <if test="name != null">
-        NAME = #{name,jdbcType=VARCHAR},
-      </if>
       <if test="accountId != null">
         ACCOUNT_ID = #{accountId,jdbcType=VARCHAR},
       </if>
+      <if test="name != null">
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
       <if test="token != null">
-        TOKEN = #{token,jdbcType=CHAR},
+        TOKEN = #{token,jdbcType=VARCHAR},
       </if>
       <if test="gmtCreate != null">
         GMT_CREATE = #{gmtCreate,jdbcType=BIGINT},
       </if>
       <if test="gmtModified != null">
         GMT_MODIFIED = #{gmtModified,jdbcType=BIGINT},
+      </if>
+      <if test="bio != null">
+        BIO = #{bio,jdbcType=VARCHAR},
       </if>
       <if test="avatarUrl != null">
         AVATAR_URL = #{avatarUrl,jdbcType=VARCHAR},
@@ -232,11 +246,12 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.ruihe.community.model.User">
     update USER
-    set NAME = #{name,jdbcType=VARCHAR},
-      ACCOUNT_ID = #{accountId,jdbcType=VARCHAR},
-      TOKEN = #{token,jdbcType=CHAR},
+    set ACCOUNT_ID = #{accountId,jdbcType=VARCHAR},
+      NAME = #{name,jdbcType=VARCHAR},
+      TOKEN = #{token,jdbcType=VARCHAR},
       GMT_CREATE = #{gmtCreate,jdbcType=BIGINT},
       GMT_MODIFIED = #{gmtModified,jdbcType=BIGINT},
+      BIO = #{bio,jdbcType=VARCHAR},
       AVATAR_URL = #{avatarUrl,jdbcType=VARCHAR}
     where ID = #{id,jdbcType=BIGINT}
   </update>
