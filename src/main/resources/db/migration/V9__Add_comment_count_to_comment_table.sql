@@ -1,1 +1,1 @@
-ALTER TABLE COMMENT ADD COMMENT_COUNT INT DEFAULT 0;
+alter table comment add comment_count int default 0;

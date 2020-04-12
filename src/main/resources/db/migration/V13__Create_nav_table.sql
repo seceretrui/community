@@ -1,10 +1,10 @@
-CREATE TABLE NAV
+create table nav
 (
-    ID INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-    TITLE VARCHAR(100),
-    URL VARCHAR(256),
-    PRIORITY INT DEFAULT 0,
-    GMT_CREATE BIGINT,
-    GMT_MODIFIED BIGINT,
-    STATUS INT
+    id int auto_increment primary key not null,
+    title varchar(100),
+    url varchar(256),
+    priority int default 0,
+    gmt_create bigint,
+    gmt_modified bigint,
+    status int
 );

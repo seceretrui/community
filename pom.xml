@@ -72,6 +72,12 @@
 		</dependency>
 
 		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.47</version>
+		</dependency>
+
+		<dependency>
 			<groupId>com.aliyun.oss</groupId>
 			<artifactId>aliyun-sdk-oss</artifactId>
 			<version>3.8.0</version>
@@ -88,6 +94,13 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+
+		<dependency>
+			<groupId>me.zhyd.oauth</groupId>
+			<artifactId>JustAuth</artifactId>
+			<version>1.13.1</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -102,34 +115,44 @@
 				<artifactId>flyway-maven-plugin</artifactId>
 				<version>6.0.8</version>
 				<configuration>
-					<url>jdbc:h2:G:/27512</url>
-					<user>sa</user>
-					<password>123</password>
+					<url>jdbc:mysql://localhost:3306/community</url>
+					<user>root</user>
+					<password>Hr1998!!</password>
 				</configuration>
 				<dependencies>
 					<dependency>
 						<groupId>com.h2database</groupId>
 						<artifactId>h2</artifactId>
 						<version>1.4.199</version>
+					</dependency>
+					<dependency>
+						<groupId>mysql</groupId>
+						<artifactId>mysql-connector-java</artifactId>
+						<version>5.1.47</version>
 					</dependency>
 				</dependencies>
 			</plugin>
 
 			<plugin>
-				<groupId>org.mybatis.generator</groupId>
-				<artifactId>mybatis-generator-maven-plugin</artifactId>
-				<version>1.4.0</version>
-				<dependencies>
-					<dependency>
-						<groupId>com.h2database</groupId>
-						<artifactId>h2</artifactId>
-						<version>1.4.199</version>
-					</dependency>
-				</dependencies>
-				<configuration>
-					<overwrite>true</overwrite>
-				</configuration>
-			</plugin>
+			<groupId>org.mybatis.generator</groupId>
+			<artifactId>mybatis-generator-maven-plugin</artifactId>
+			<version>1.4.0</version>
+			<dependencies>
+				<dependency>
+					<groupId>com.h2database</groupId>
+					<artifactId>h2</artifactId>
+					<version>1.4.199</version>
+				</dependency>
+				<dependency>
+					<groupId>mysql</groupId>
+					<artifactId>mysql-connector-java</artifactId>
+					<version>5.1.47</version>
+				</dependency>
+			</dependencies>
+			<configuration>
+				<overwrite>true</overwrite>
+			</configuration>
+		</plugin>
 		</plugins>
 		<finalName>community</finalName>
 	</build>
