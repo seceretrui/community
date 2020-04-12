@@ -12,10 +12,10 @@
         <commentGenerator>
             <property name="suppressAllComments" value="true"></property>
         </commentGenerator>
-        <jdbcConnection driverClass=""
-                        connectionURL="jdbc:mysql://localhost:3306/community"
-                        userId="root"
-                        password="Hr1998!!">
+        <jdbcConnection driverClass="org.h2.Driver"
+                        connectionURL="jdbc:h2:G:/27512"
+                        userId="sa"
+                        password="123">
         </jdbcConnection>
 
         <javaTypeResolver >
